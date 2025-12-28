@@ -3,9 +3,11 @@ This project focuses on understanding language design, parsing, AST evaluation, 
 
 ### 📌 Features (Till Now)
 
-Lexical analysis (tokenization)
-Syntax parsing
-Error handling with meaningful messages
+1.Lexical analysis (tokenization)
+
+2.Syntax parsing
+
+3.Error handling with meaningful messages
 ```
 com/
 ├── craftinginterpreter/
