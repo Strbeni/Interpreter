@@ -12,6 +12,28 @@ class Scanner {
     private int start = 0;
     private int current = 0;
     private int line = 1;
+    private static final Map<String, TokenType> keywords;
+    
+    static {
+        keywords = new HashMap<>();
+        keywords.put("and", AND);
+        keywords.put("class", CLASS);
+        keywords.put("else", ELSE);
+        keywords.put("false", FALSE);
+        keywords.put("fun", FUN);
+        keywords.put("for", FOR);
+        keywords.put("if", IF);
+        keywords.put("nil", NIL);
+        keywords.put("or", OR);
+        keywords.put("log", LOG);
+        keywords.put("return", RETURN);
+        keywords.put("super", SUPER);
+        keywords.put("this", THIS);
+        keywords.put("true", TRUE);
+        keywords.put("var", VAR);
+        keywords.put("while", WHILE);
+    }
+
 
     List<Token> scanTokens() {
         // So here it scans through the source code and adds tokens until it reaches end
@@ -91,17 +113,29 @@ class Scanner {
             case '"':
                 string();
                 break;
-
+            case 'o':
+                if(match('r')){
+                    addToken(OR);
+                }
+                break;
+            
             default:
                 if (isDigit(c)) {
                     number();
-                } else {
+                } else if(isAlpha(c)){
+                    identifier();
+                }else {
                     Quetzal.error(line, "Unexpected character.");
                 }
                 break;
         }
     }
 
+    private void identifier(){
+        while(isAlphaNumeric(peek())) advance();
+
+        addToken(IDENTIFIER);
+    }
     private void string() {
         while (peek() != '"' && !isAtEnd()) {
             if (peek() == '\n')
@@ -152,6 +186,16 @@ class Scanner {
         if (current + 1 >= source.length())
             return '\0';
         return source.charAt(current + 1);
+    }
+
+    private boolean isAlpha(char c){
+        return (c >= 'a' && c <= 'z') ||
+               (c >= 'A' && c <= 'Z') ||
+               c == '_';
+    }
+
+    private boolean isAlphaNumeric(char c){
+        return isAlpha(c) || isDigit(c);
     }
 
     Scanner(String source) {
