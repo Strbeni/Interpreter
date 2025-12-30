@@ -68,3 +68,8 @@ interface Visitor {
         void visitBinary(Binary binary);
 }
 ```
+
+
+## pretty printing
+
+Converting Tree to a string is known as pretty printing.

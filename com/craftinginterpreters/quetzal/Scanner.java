@@ -94,18 +94,22 @@ class Scanner {
                 break;
             case '/':
                 if (match('/')) {
-                    while (peek() != '\n' && !isAtEnd())
+                    while (peek() != '\n' && !isAtEnd()) advance();
+                } else if (match('*')) {
+                    while (!isAtEnd()) {
+                        if (peek() == '*' && peekNext() == '/') {
+                            advance(); // Consume '*'
+                            advance(); // Consume '/'
+                            break;
+                        }
+                        if (peek() == '\n') line++;
                         advance();
+                    }
                 } else {
                     addToken(SLASH);
                 }
                 break;
-            case '/*':
-                while (peek() != "*/" && !isAtEnd()){
-                    if(peek() == '\n') line++;
-                    advance();
-                }
-                break;
+
             case ' ':
             case '\r':
             case '\t':
@@ -117,11 +121,6 @@ class Scanner {
                 break;
             case '"':
                 string();
-                break;
-            case 'o':
-                if(match('r')){
-                    addToken(OR);
-                }
                 break;
             
             default:
