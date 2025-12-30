@@ -1,3 +1,5 @@
+prev - Lexical Grammar
+
 ## Context Free Grammar
 In the Syntaxtic grammar now each "letter"in alphabet is entire token and "string" is sequence of tokens or expression.
 
@@ -10,3 +12,25 @@ Example - "let x = 5" is sequence of tokens "let", "x", "=", "5".
 Teminologies -> Terminal        - Literal Values
                 Non-Terminal    - Variables
                 production      - Rules
+
+Grammar -> 
+```
+expression     → literal
+               | unary
+               | binary
+               | grouping ;
+
+literal        → NUMBER | STRING | "true" | "false" | "nil" ;
+grouping       → "(" expression ")" ;
+unary          → ( "-" | "!" ) expression ;
+binary         → expression operator expression ;
+operator       → "==" | "!=" | "<" | "<=" | ">" | ">="
+               | "+"  | "-"  | "*" | "/" ;
+```
+## Abstract Syntax Tree
+
+Every Single grammar production(rule) becomes node in the tree.
+
+Do - For each production under expression create subclass tha has fields for variable specific to production(rule).
+
+Do - Automate the process of creating subclasses for each production.
