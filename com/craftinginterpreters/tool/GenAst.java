@@ -1,4 +1,4 @@
-package com.craftinginterpreters.quetzal;
+package com.craftinginterpreters.tool;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,5 +38,26 @@ public class GenAst{
         }
         writer.println("} ");
         writer.close();
+    }
+
+    private static void defineType(PrintWriter writer, String baseName, String className, String fieldList){
+        writer.println(" static class " + className + " extends " + baseName + " {");
+        
+        //constructor
+        writer.println("    " + className + "(" + fieldList + ") {");
+        String[] fields = fieldList.split(",");
+        for(String field: fields){
+            String name = field.trim().split(" ")[1];
+            writer.println("    this." + name + " = " + name + ";");
+        }
+        
+        writer.println("    }");
+
+        writer.println();
+        for (String field : fields){
+            writer.println("    final " + field + ";");
+        }
+        
+        writer.println("    }");
     }
 }

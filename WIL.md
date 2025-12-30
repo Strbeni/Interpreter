@@ -33,4 +33,4 @@ Every Single grammar production(rule) becomes node in the tree.
 
 Do - For each production under expression create subclass tha has fields for variable specific to production(rule).
 
-Do - Automate the process of creating subclasses for each production.
+Do - Automate the process of creating subclasses for each production. It should have description of each tree type, its name and fields.
