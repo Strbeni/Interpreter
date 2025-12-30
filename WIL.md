@@ -34,3 +34,37 @@ Every Single grammar production(rule) becomes node in the tree.
 Do - For each production under expression create subclass tha has fields for variable specific to production(rule).
 
 Do - Automate the process of creating subclasses for each production. It should have description of each tree type, its name and fields.
+
+## Trees 
+Problem with expression tree is that it is not easy to evaluate. We need specific implementation for each type of tree.
+```
+          Interpret()     Resolve()       analyze()
+Binary        -             -             -
+Grouping      -             -             -
+Literal       -             -             -
+Unary         -             -             -
+```
+Each cell represents unique peice of implementtion on that type.
+
+Imagine we create classes with methods for each cell.
+
+pattern matching helps to define another function that matches patter on all of the types.
+
+expression problem.
+
+## The Visitor pattern
+Is a design patter,the pattern doest no have anything to do with traversing trees or visiting.
+
+We'll use it on set of classes that are tree-like.
+It solves the expression problem and lets us add new columns (operations) easily.
+
+We can definal all of the behaviour o fnew operation on a set of types in one place.
+
+How we gonna do it?
+We'll define a separate interface. for example
+
+```
+interface Visitor {
+        void visitBinary(Binary binary);
+}
+```
